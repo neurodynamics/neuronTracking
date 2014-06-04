@@ -1,0 +1,77 @@
+#!/bin/bash
+
+# This script allows to insert noise in a serie images. 
+# Uncomment only what you will use.
+
+#configure
+path0="/home/helton/Dropbox/uppsala/proj_jornal_neuro_figuras/dataset/slice/exp4/compressNo/_files/images/image"
+destino="/home/helton/Dropbox/uppsala/proj_jornal_neuro_figuras/dataset/slice/exp4/compressNo/noise/_files/gamma/gamma-image11"
+#path2="/home/helton/Dropbox/uppsala/proj_jornal_neuro_figuras/dataset/culture/exp0/experimento0compress/withROI/image"
+#path3="/home/helton/Dropbox/uppsala/proj_jornal_neuro_figuras/dataset/culture/exp0/experimento0NoiseCompress/withROI/image"
+
+# === STET 1
+# === insert gamma 
+i=11
+cd /home/helton/work/programming/opencv/match_paper/paper/gammaAll
+
+while [ $i -le 11 ]
+	do
+    	echo "output: $i"
+		./gamma $path0${i}.tif $path0${i}gamma
+		#mv $path0${i}gamma${i}.tif $destino
+		mv $path0${i}gamma* $destino
+((i++))
+
+done
+
+<<com
+
+# === STET 2
+# === insert blur
+i=11
+cd /home/helton/work/programming/opencv/match_paper/paper/blurAll
+
+while [ $i -le 11 ]
+	do
+    	echo "output: $i"
+		./blur_all $path0${i}.tif $path0${i}blur
+		mv  $path0${i}blur* $destino
+((i++))
+done
+com
+
+<<com
+# === STET 3
+# === insert gamma over blur
+i=1
+cd /home/helton/work/programming/opencv/match_paper/paper/gammaAll
+
+while [ $i -le 90 ]
+	do
+    	echo "output: $i"
+		./gamma ${destino}image${i}blur.tif $path0${i}gammaOverBlur.tif
+		mv $path0${i}gammaOverBlur.tif $destino
+((i++))
+done
+
+
+#com
+<<c2
+# === STEP 4
+# === insert compress
+i=1
+cd /home/helton/work/programming/opencv/match_paper/paper/pyramid_compressAll
+path0="/home/helton/Dropbox/uppsala/proj_jornal_neuro_figuras/dataset/slice/exp4/compressNo/_files/images/image"
+destino="/home/helton/Dropbox/uppsala/proj_jornal_neuro_figuras/dataset/slice/exp4/compress/_files/images/"
+
+while [ $i -le 90 ]
+	do
+    	echo "output: $i"
+			./pyramid $path0${i}.tif $path0${i}compress.tif 
+			mv $path0${i}compress.tif $destino
+			#./pyramid $path1${i}gammaOverBlur.tif $path3${i}gammaOverBlurCompress.tif 
+((i++))
+done
+c2
+com
+

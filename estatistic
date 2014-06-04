@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# configure 
+path3="/home/helton/Dropbox/uppsala/proj_jornal_neuro_figuras/dataset/slice/exp0/compressNo/noise/_files/matches_right"
+path4="/home/helton/Dropbox/uppsala/proj_jornal_neuro_figuras/dataset/slice/exp0/compressNo/noise/_files/time_right"
+
+i=1
+# commands
+# select max number of matches on the each file
+cd $path3
+touch matchesAll.txt
+
+
+while [ $i -le 90 ]
+	do
+    	echo "output: $i"
+		cat matche$i.txt | awk '{ field = $NF }; END{ print $1 }' >> matchesAll.txt
+
+((i++))
+done
+
+i=1
+# commands
+# select max number of times on the each file
+cd $path4
+touch timeAll.txt
+
+
+while [ $i -le 90 ]
+	do
+    	echo "output: $i"
+		cat time$i.txt | awk '{ field = $NF }; END{ print $1 }' >> timeAll.txt
+
+((i++))
+done
+
+
+

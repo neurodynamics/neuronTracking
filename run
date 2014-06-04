@@ -1,0 +1,38 @@
+#!/bin/bash
+
+#=== configure
+i=1
+
+image="image"
+template="exp0_template"
+#template="exp0_template_left_compress"
+
+#echo $image
+#<< c1
+path0="/home/helton/Dropbox/uppsala/proj_jornal_neuro_figuras/dataset/culture/exp0/compressNo/noise/_files/images/"
+path1="/home/helton/Dropbox/uppsala/proj_jornal_neuro_figuras/dataset/culture/exp0/compressNo/noise/_files/descriptors_right/"
+path2="/home/helton/Dropbox/uppsala/proj_jornal_neuro_figuras/dataset/culture/exp0/compressNo/noise/_files/keypoints_right/"
+path3="/home/helton/Dropbox/uppsala/proj_jornal_neuro_figuras/dataset/culture/exp0/compressNo/noise/_files/matches_right/"
+path4="/home/helton/Dropbox/uppsala/proj_jornal_neuro_figuras/dataset/culture/exp0/compressNo/noise/_files/time_right/"
+
+# ====
+while [ $i -le 6 ]
+	do
+    	echo "output: $i"
+		#./SURF_FlannMatcher $path0${image}${i}.tif $path0$template.tif matche$i.txt key$i.yml descrip${i}.yml time${i}.txt
+		./SURF_FlannMatcher $path0${image}${i}gammaOverBlur.tif $path0$template.tif matche$i.txt key$i.yml descrip${i}.yml time${i}.txt
+
+((i++))
+done
+
+# === save files
+#echo ${path1}
+
+<<c1
+mv descrip* ${path1}
+mv key* 	${path2}
+mv matche* 	${path3}
+mv time* 	${path4}
+
+
+c1
