@@ -18,7 +18,7 @@ int main( int argc, char** argv ) {
     if( argc == 9 && ((img1=cvLoadImage(argv[1],1)) != 0
         )&&((img2=cvLoadImage(argv[2],1)) != 0))
         {
-			// atoi~string to int, atof~string to double
+	    // atoi~string to int, atof~string to double
             int x 		= atoi(argv[3]); 					
             int y 		= atoi(argv[4]);					
             int width 	= atoi(argv[5]);					
