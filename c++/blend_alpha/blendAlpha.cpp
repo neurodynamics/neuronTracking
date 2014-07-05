@@ -18,7 +18,7 @@ int main( int argc, char** argv ) {
     if( argc == 9 && ((img1=cvLoadImage(argv[1],1)) != 0
         )&&((img2=cvLoadImage(argv[2],1)) != 0))
         {
-			// atoi~string to int, atof~string to double
+	    // atoi~string to int, atof~string to double
             int x 		= atoi(argv[3]); 					
             int y 		= atoi(argv[4]);					
             int width 	= atoi(argv[5]);					
@@ -26,15 +26,15 @@ int main( int argc, char** argv ) {
             double alpha= (double)atof(argv[7]);			
             double beta = (double)atof(argv[8]);			
             
-			//openCv Operations
-			cvSetImageROI(img1, cvRect(x,y,width,height));
+	    //openCv Operations
+	    cvSetImageROI(img1, cvRect(x,y,width,height));
             cvSetImageROI(img2, cvRect(x,y,width,height));
-			//dst = img1*alpha + img2*beta + gamma;
+	   //dst = img1*alpha + img2*beta + gamma;
             cvAddWeighted(img1, alpha, img2, beta, gamma, img1);
             cvResetImageROI(img1);        
 			
-			//show results
-			cvNamedWindow( "Overlay", 1 ); 		
+	    //show results
+	    cvNamedWindow( "Overlay", 1 ); 		
             cvShowImage( "Overlay", img1 ); 	
             cvWaitKey();
         }
